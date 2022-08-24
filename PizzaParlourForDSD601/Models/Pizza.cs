@@ -1,8 +1,11 @@
-﻿namespace PizzaParlourForDSD601.Models
+﻿using PizzaParlourForDSD601.Interfaces;
+using System.ComponentModel.DataAnnotations;
+
+namespace PizzaParlourForDSD601.Models
 {
 
     //create interface for this class
-    public class Pizza
+    public class Pizza : IPizza
     {
         //Consider putting Id property here during code review
         public string PizzaName { get; set; }
@@ -10,9 +13,11 @@
         public string Description { get; set; }
         public bool IsGlutenFree { get; set; }
         public bool IsVegetarian { get; set; }
-        //these lists need to be instantiated
-        public List<string> PizzaIngredients { get; set; }
+        //these lists need to be instantiated       
+        public List<string> PizzaIngredients { get; set; }       
         public List<string> PizzaSizesAndPrices { get; set; }
+ 
+        public string PizzaChefName { get; set; } 
 
         //this is for the selectlist
         //public List<PizzaSelection> PizzaFlavourSelection { get; set; }
@@ -25,8 +30,14 @@
 
             PizzaIngredients = new List<string>();
             PizzaSizesAndPrices = new List<string>();
+            
         }
 
         //add virtual method here
+        public virtual void PizzaChef(string pizzaChef)
+        {
+
+            PizzaChefName = "Tony Soprano";
+        }
     }
 }

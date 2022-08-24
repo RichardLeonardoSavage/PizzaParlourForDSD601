@@ -1,10 +1,74 @@
 ﻿@page
 @model IndexModel
+@using PizzaParlourForDSD601.Operations
+@using PizzaParlourForDSD601.Models
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card">
+    <div class="card-header">
+        <div><h1 class="Pizza-Title">Jaja Phon's Pizza Parlour</h1></div>
+        <div><p class="slogan">One of the Pizza places in town!</p></div>
+        
+    </div>
+
+    <div class="card-body">
+        <form method="post">
+            <label>Choose your Pizza</label>
+            <select asp-for=" PizzaFlavour" asp-items="Html.GetEnumSelectList<PizzaEnum>()">
+                <option selected="selected" value=""></option>
+            </select>
+            <input type="submit" value="Choose" asp-action="Index"/>
+        </form>
+    </div>
+    <div class="card-footer">
+        @if (Model.IsFirstLoad)
+            {
+            <div class="footer-one">
+                <h2>@Model.pizza.PizzaName</h2>
+                <img class="picture" src="@Model.pizza.Image" />
+                <p>@Model.pizza.Description</p>
+            </div>
+            <div class="footer-two">
+                <div class="lists">
+                    <div>
+                        <h4>Pizza Sizes and Prices</h4>
+                        <ul>
+                            @foreach (var item in Model.pizza.PizzaSizesAndPrices)
+                            {
+                                <li> @item </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Ingredients</h4>
+                        <ul>
+                            @foreach (var item in Model.pizza.PizzaIngredients)
+                            {
+                                <li> @item </li>
+                            }
+                        </ul>
+                    </div>
+                    <div>
+                        
+                        @if (Model.pizza.IsVegetarian)
+                        {
+                            <p>This Pizza is Vegetarian &#10003;</p>
+                        }
+                        @if (Model.pizza.IsGlutenFree)
+                        {
+                            <p>This Pizza is Gluten Free &#10003;</p>
+                        }
+
+                    </div>
+                    <div>
+                        <h4>Proudly Cooked by</h4>
+                        <p>@Model.pizza.PizzaChefName</p>
+                    </div>
+                </div>
+            </div>
+                }
+</div>
 </div>
